@@ -6,12 +6,24 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+//this class will be recreated
+class MyApp extends StatefulWidget {
 
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+//this class is not recreated (storing the state)
+class MyAppState extends State<MyApp> {
   var questionIndex = 0;
 
   void answerQuestion() {
-    questionIndex = questionIndex + 1;
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+    
     print(questionIndex);
   }
 
