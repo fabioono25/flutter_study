@@ -16,13 +16,5 @@ class Question extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
     );
-
-    // return Center(
-    //   child: Text(
-    //     questionText,
-    //     style: TextStyle(fontSize: 28),
-    //     textAlign: TextAlign.center,
-    //   ),
-    // );
   }
 }
