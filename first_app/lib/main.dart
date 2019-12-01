@@ -20,10 +20,10 @@ class MyAppState extends State<MyApp> {
   var questionIndex = 0;
 
   void answerQuestion() {
-    setState(() {
+    setState(() { //re-render user interface by calling build() method again
       questionIndex = questionIndex + 1;
     });
-    
+
     print(questionIndex);
   }
 
