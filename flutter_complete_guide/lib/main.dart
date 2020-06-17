@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,60 +13,75 @@ class MyApp extends StatefulWidget {
 //this class is not recreated/not reset
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': [
+        {'text': 'Blue', 'score': 5},
+        {'text': 'Black', 'score': 3},
+        {'text': 'White', 'score': 6},
+        {'text': 'Green', 'score': 1},
+        {'text': 'Orange', 'score': 2}
+      ],
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': [
+        {'text': 'Dog', 'score': 2},
+        {'text': 'Castor', 'score': 3},
+        {'text': 'Horse', 'score': 4},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Cat', 'score': 1}
+      ],
+    },
+    {
+      'questionText': 'Quem é o cara mais pentelho desse planeta?',
+      'answers': [
+        {'text': 'Cabeça', 'score': 6},
+        {'text': 'Muxiba', 'score': 7},
+        {'text': 'Pastor', 'score': 2}
+      ],
+    }
+  ];
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+
+    _totalScore += score;
+
     setState(() {
       _questionIndex += 1;
     });
 
     print('question answered!' + _questionIndex.toString());
+
+    if (_questionIndex < _questions.length) {
+      print('we have more questions');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      {
-        'questionText': 'What\'s your favorite color?',
-        'answers': ['Blue', 'Black', 'Orange', 'Green', 'Pink'],
-      },
-      {
-        'questionText': 'What\'s your favorite animal?',
-        'answers': ['Dog', 'Cat', 'Pig', 'Elephant', 'Horse'],
-      },
-      {
-        'questionText': 'Quem é o cara mais pentelho desse planeta?',
-        'answers': ['Cabeça', 'Muxiba', 'Pastor', 'Weintraub'],
-      }
-    ];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: Column(
-          children: [
-            new Question(questions[_questionIndex]['questionText']),
-            //new Question(questions[questionIndex]),
-            // Text(questions[questionIndex]),
-            ...(questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) => Answer(_answerQuestion, answer))
-                .toList(),
-            // Answer(_answerQuestion),
-            // Answer(_answerQuestion),
-            // Answer(_answerQuestion),
-            // RaisedButton(
-            //   child: Text('Answer 2'),
-            //   onPressed: () => print('Question 2 answered!'),
-            // ),
-            // RaisedButton(
-            //   child: Text('Answer 3'),
-            //   onPressed: () {
-            //     print('Question 3 answered!');
-            //   },
-            // ),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
