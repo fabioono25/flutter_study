@@ -1,0 +1,28 @@
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+# Omit committing generated plugin registrant files
+# They will be recreated with Flutter build/run
+**/GeneratedPluginRegistrant.java
+**/GeneratedPluginRegistrant.swift
+# Plugins
+plugins/
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+# VS Code related
+.vscode/
+# Mac related
+*.DS_Store
+# Windows related
+Thumbs.db
+# Linux related
+*.lock
